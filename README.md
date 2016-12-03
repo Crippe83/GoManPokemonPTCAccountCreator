@@ -1,5 +1,5 @@
-# GoManAccountCreator
-GoMan Account Creator
+# GoManPokemonPTCAccountCreator
+GoMan Pokemon PTC Account Creator
 
 Features:
 NO-IP.com integration (Sign-up here! https://www.noip.com/)
