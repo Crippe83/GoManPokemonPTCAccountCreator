@@ -108,7 +108,7 @@ namespace GoManPTCAccountCreator.Controller
             public static string GeneratePassword()
             {
                 if (Settings.RandomPassword)
-                    return RandomPassword(Settings.RandomPasswordLength);
+                    return RandomPassword(Settings.RandomPasswordLength, 4);
                 else
                     return Settings.Password;
             }
@@ -127,23 +127,77 @@ namespace GoManPTCAccountCreator.Controller
 
             private static readonly Random Random = new Random();
 
-            public static int RandomNumber(int min, int max)
+            private static int RandomNumber(int min, int max)
             {
                 return Random.Next(min, max);
             }
 
-            public static string RandomString(int length)
+            private static string RandomString(int length)
             {
                 const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_";
                 return new string(Enumerable.Repeat(chars, length)
                     .Select(s => s[Random.Next(s.Length)]).ToArray());
             }
 
-            public static string RandomPassword(int length)
+            /// <summary>
+            /// Creates a pseudo-random password containing the number of character classes
+            /// defined by complexity, where 2 = alpha, 3 = alpha+num, 4 = alpha+num+special.
+            /// </summary>
+            public static string RandomPassword(int length, int complexity)
             {
-                const string chars = "ABCDEFGHJKMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz123456789_!@#$%?";
-                return new string(Enumerable.Repeat(chars, length)
-                    .Select(s => s[Random.Next(s.Length)]).ToArray());
+                System.Security.Cryptography.RNGCryptoServiceProvider csp =
+                new System.Security.Cryptography.RNGCryptoServiceProvider();
+                // Define the possible character classes where complexity defines the number
+                // of classes to include in the final output.
+                char[][] classes =
+                {
+                    @"abcdefghjkmnpqrstuvwxyz".ToCharArray(),
+                    @"ABCDEFGHJKMNPQRSTUVWXYZ".ToCharArray(),
+                    @"123456789".ToCharArray(),
+                    @"_!@#$%?".ToCharArray(),
+                    };
+
+                complexity = Math.Max(1, Math.Min(classes.Length, complexity));
+                if (length < complexity)
+                    throw new ArgumentOutOfRangeException("length");
+
+                // Since we are taking a random number 0-255 and modulo that by the number of
+                // characters, characters that appear earilier in this array will recieve a
+                // heavier weight. To counter this we will then reorder the array randomly.
+                // This should prevent any specific character class from recieving a priority
+                // based on it's order.
+                char[] allchars = classes.Take(complexity).SelectMany(c => c).ToArray();
+                byte[] bytes = new byte[allchars.Length];
+                csp.GetBytes(bytes);
+                for (int i = 0; i < allchars.Length; i++)
+                {
+                    char tmp = allchars[i];
+                    allchars[i] = allchars[bytes[i] % allchars.Length];
+                    allchars[bytes[i] % allchars.Length] = tmp;
+                }
+
+                // Create the random values to select the characters
+                Array.Resize(ref bytes, length);
+                char[] result = new char[length];
+
+                while (true)
+                {
+                    csp.GetBytes(bytes);
+                    // Obtain the character of the class for each random byte
+                    for (int i = 0; i < length; i++)
+                        result[i] = allchars[bytes[i] % allchars.Length];
+
+                    // Verify that it does not start or end with whitespace
+                    if (Char.IsWhiteSpace(result[0]) || Char.IsWhiteSpace(result[(length - 1) % length]))
+                        continue;
+
+                    string testResult = new string(result);
+                    // Verify that all character classes are represented
+                    if (0 != classes.Take(complexity).Count(c => testResult.IndexOfAny(c) < 0))
+                        continue;
+
+                    return testResult;
+                }
             }
         }
     }

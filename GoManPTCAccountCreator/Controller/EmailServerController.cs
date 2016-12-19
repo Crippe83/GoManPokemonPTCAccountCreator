@@ -105,7 +105,7 @@ namespace GoManPTCAccountCreator.Controller
                 var size = GetFileSize(fileName);
                 VerifyAccount(fileName);
 
-                File.Delete(fileName);
+                //File.Delete(fileName);
 
                 var successMessage = String.Format("{0} bytes received", size);
                 var response = SmtpResponses.OK.CloneAndChange(successMessage);
