@@ -8,12 +8,7 @@ namespace GoManPTCAccountCreator.Controller
         {
             public Exception Error { get; set; }
             public bool Success { get; set; }
-        }
-
-        private class MethodResult<T> : MethodResult
-        {
-            public T Value { get; set; }
-
+            public string Value { get; set; }
         }
     }
 }

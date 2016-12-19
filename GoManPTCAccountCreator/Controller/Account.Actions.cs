@@ -155,7 +155,7 @@ namespace GoManPTCAccountCreator.Controller
             private static async Task<MethodResult> RetryCaptchaAction(Func<Model, Task<MethodResult>> action, string actionName, Account.Model account, int tryCount)
             {
                 int tries = 1;
-                MethodResult methodResult = new MethodResult();
+                var methodResult = new MethodResult();
                 account.AddLog(LoggerTypes.Debug, $"Starting {actionName}");
 
                 while (tries < tryCount)
@@ -171,7 +171,7 @@ namespace GoManPTCAccountCreator.Controller
                     else
                     {
                         tries++;
-                        account.AddLog(LoggerTypes.Exception, actionName + tryMsg, "", methodResult.Error);
+                        account.AddLog(LoggerTypes.Exception, actionName + tryMsg, methodResult.Value, methodResult.Error);
 
                     }
 
@@ -210,7 +210,7 @@ namespace GoManPTCAccountCreator.Controller
                     else
                     {
                         tries++;
-                        account.AddLog(LoggerTypes.Exception, actionName + tryMsg, "", methodResult.Error);
+                        account.AddLog(LoggerTypes.Exception, actionName + tryMsg, methodResult.Value, methodResult.Error);
 
                     }
 

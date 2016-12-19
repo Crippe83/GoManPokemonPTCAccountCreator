@@ -45,7 +45,7 @@ namespace GoManPTCAccountCreator.Controller
                         if (httpResponseMessage.IsSuccessStatusCode)
                         {
                             var result = await httpResponseMessage.Content.ReadAsStringAsync();
-                            //methodResult.Value = result;
+                            methodResult.Value = result;
                             var match = RegexCsrf.Match(result);
                             if (match.Success)
                                 account.Csrf = match.Groups[1].Value;
@@ -85,7 +85,8 @@ namespace GoManPTCAccountCreator.Controller
                         var responseMessage = await client.PostAsync(AgeVerifyUrl, urlEncodedContent))
                     {
                         methodResult.Success = responseMessage.IsSuccessStatusCode;
-                        //var results = await responseMessage.Content.ReadAsStringAsync();
+                        var results = await responseMessage.Content.ReadAsStringAsync();
+                        methodResult.Value = results;
                     }
                 }
                 catch (Exception ex)
@@ -105,7 +106,7 @@ namespace GoManPTCAccountCreator.Controller
                 try
                 {
                     string result = await SendRecaptchav2RequestTask(CaptchaIn, postData);
-
+                    methodResult.Value = result;
                     if (result.Contains("OK|"))
                     {
                         account.CaptchaId = result.Substring(3, result.Length - 3);
@@ -140,6 +141,7 @@ namespace GoManPTCAccountCreator.Controller
                         result = await SendRecaptchav2RequestTask(CaptchaOut, postData);
                     }
 
+                    methodResult.Value = result;
                     if (result.Contains("OK|"))
                     {
                         account.CaptchaResponse = result.Substring(3, result.Length - 3);
@@ -201,6 +203,7 @@ namespace GoManPTCAccountCreator.Controller
                             }
 
                             var result = await httpResponseMessage.Content.ReadAsStringAsync();
+                            methodResult.Value = result;
                         }
                     }
                 }
@@ -224,7 +227,7 @@ namespace GoManPTCAccountCreator.Controller
                         if (!httpResponseMessage.IsSuccessStatusCode)
                             return null;
                         var result = await httpResponseMessage.Content.ReadAsStringAsync();
-                        //methodResult.Value = result;
+                        methodResult.Value = result;
 
                         var matchLt = RegexLt.Match(result);
                         var matchExecution = RegexExecution.Match(result);
@@ -276,7 +279,7 @@ namespace GoManPTCAccountCreator.Controller
                         if (httpResponseMessage.IsSuccessStatusCode)
                         {
                             var result = await httpResponseMessage.Content.ReadAsStringAsync();
-                            //methodResult.Value = result;
+                            methodResult.Value = result;
 
                             var match = RegexCsrf.Match(result);
                             if (match.Success)
@@ -313,7 +316,7 @@ namespace GoManPTCAccountCreator.Controller
                     {
                         if (httpResponseMessage.IsSuccessStatusCode)
                         {
-                            Debug.WriteLine(await httpResponseMessage.Content.ReadAsStringAsync());
+                            methodResult.Value = await httpResponseMessage.Content.ReadAsStringAsync();
                             methodResult.Success = true;
                         }
                         else
@@ -347,7 +350,7 @@ namespace GoManPTCAccountCreator.Controller
                         if (httpResponseMessage.IsSuccessStatusCode)
                         {
                             var result = await httpResponseMessage.Content.ReadAsStringAsync();
-                           // methodResult.Value = result;
+                            methodResult.Value = result;
 
                             if (!result.ToLower().Contains("id_go_terms"))
                             {

@@ -74,6 +74,8 @@ namespace GoManPTCAccountCreator
             this.olvColumn4 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColumn5 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColumn6 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.verifyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tbAccountSettings = new System.Windows.Forms.TabPage();
             this.grpEmail = new System.Windows.Forms.GroupBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -100,8 +102,6 @@ namespace GoManPTCAccountCreator
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.mappedImageRenderer1 = new BrightIdeasSoftware.MappedImageRenderer();
-            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.verifyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grpDateOfBirth.SuspendLayout();
             this.grpUsername.SuspendLayout();
             this.grpPassword.SuspendLayout();
@@ -111,6 +111,7 @@ namespace GoManPTCAccountCreator
             this.tabControl1.SuspendLayout();
             this.tbCreatedAccounts.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.objectListView1)).BeginInit();
+            this.contextMenuStrip2.SuspendLayout();
             this.tbAccountSettings.SuspendLayout();
             this.grpEmail.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -120,7 +121,6 @@ namespace GoManPTCAccountCreator
             this.tbEmailSettings.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.tbLog.SuspendLayout();
-            this.contextMenuStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtPassword
@@ -288,7 +288,7 @@ namespace GoManPTCAccountCreator
             0,
             0});
             this.udRandomPasswordLength.Minimum = new decimal(new int[] {
-            6,
+            8,
             0,
             0,
             0});
@@ -296,7 +296,7 @@ namespace GoManPTCAccountCreator
             this.udRandomPasswordLength.Size = new System.Drawing.Size(42, 20);
             this.udRandomPasswordLength.TabIndex = 12;
             this.udRandomPasswordLength.Value = new decimal(new int[] {
-            6,
+            8,
             0,
             0,
             0});
@@ -562,6 +562,20 @@ namespace GoManPTCAccountCreator
             this.olvColumn6.AspectName = "Log";
             this.olvColumn6.Text = "Log";
             this.olvColumn6.Width = 334;
+            // 
+            // contextMenuStrip2
+            // 
+            this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.verifyToolStripMenuItem});
+            this.contextMenuStrip2.Name = "contextMenuStrip2";
+            this.contextMenuStrip2.Size = new System.Drawing.Size(143, 26);
+            // 
+            // verifyToolStripMenuItem
+            // 
+            this.verifyToolStripMenuItem.Name = "verifyToolStripMenuItem";
+            this.verifyToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.verifyToolStripMenuItem.Text = "Import Verify";
+            this.verifyToolStripMenuItem.Click += new System.EventHandler(this.verifyToolStripMenuItem_Click);
             // 
             // tbAccountSettings
             // 
@@ -831,20 +845,6 @@ namespace GoManPTCAccountCreator
             this.label7.TabIndex = 18;
             this.label7.Text = "Accounts";
             // 
-            // contextMenuStrip2
-            // 
-            this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.verifyToolStripMenuItem});
-            this.contextMenuStrip2.Name = "contextMenuStrip2";
-            this.contextMenuStrip2.Size = new System.Drawing.Size(143, 26);
-            // 
-            // verifyToolStripMenuItem
-            // 
-            this.verifyToolStripMenuItem.Name = "verifyToolStripMenuItem";
-            this.verifyToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
-            this.verifyToolStripMenuItem.Text = "Import Verify";
-            this.verifyToolStripMenuItem.Click += new System.EventHandler(this.verifyToolStripMenuItem_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -878,6 +878,7 @@ namespace GoManPTCAccountCreator
             this.tabControl1.ResumeLayout(false);
             this.tbCreatedAccounts.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.objectListView1)).EndInit();
+            this.contextMenuStrip2.ResumeLayout(false);
             this.tbAccountSettings.ResumeLayout(false);
             this.grpEmail.ResumeLayout(false);
             this.grpEmail.PerformLayout();
@@ -889,7 +890,6 @@ namespace GoManPTCAccountCreator
             this.tbEmailSettings.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.tbLog.ResumeLayout(false);
-            this.contextMenuStrip2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
