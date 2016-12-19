@@ -154,7 +154,7 @@ namespace GoManPTCAccountCreator.Controller
                     @"abcdefghjkmnpqrstuvwxyz".ToCharArray(),
                     @"ABCDEFGHJKMNPQRSTUVWXYZ".ToCharArray(),
                     @"123456789".ToCharArray(),
-                    @"_!@#$%?".ToCharArray(),
+                    @"#?!@$%^&><+`*()]".ToCharArray(),
                     };
 
                 complexity = Math.Max(1, Math.Min(classes.Length, complexity));
